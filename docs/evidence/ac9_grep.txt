@@ -1,0 +1,10 @@
+$ grep -rnE "score\w* *[<>] *\w*score" routes/
+exit=1 (1 = no matches)
+
+$ grep -rn "score >" routes/
+exit=1 (1 = no matches)
+
+$ grep -rnE "(score|s1|s2)\w* *[<>] *\w*(score|s1|s2)" services/ routes/
+services/match_outcome.py:56:    if s1 > s2:
+services/match_outcome.py:58:    if s2 > s1:
+services/match_outcome.py:79:        won1, won2 = int(s1 > s2), int(s2 > s1)

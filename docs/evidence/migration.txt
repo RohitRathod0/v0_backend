@@ -1,0 +1,39 @@
+database khel_v0 restored from dump
+$ python migrations/v2/run_migration.py migrations/v2/001_add_match_outcome.sql
+Executing:
+ALTER TABLE `match`
+  ADD COLUMN `outcome` VARCHAR(20) NOT NULL DEFAULT 'regular',
+  ADD COLUMN `outcome_reason` VARCHAR(255) NULL
+Migration 001_add_match_outcome.sql completed
+mysql> SELECT outcome, COUNT(*) FROM `match` GROUP BY outcome;
+outcome	COUNT(*)
+regular	6
+$ python migrations/v2/run_migration.py migrations/v2/001_add_match_outcome.down.sql
+Executing:
+ALTER TABLE `match`
+  DROP COLUMN `outcome`,
+  DROP COLUMN `outcome_reason`
+Migration 001_add_match_outcome.down.sql completed
+mysql> SHOW COLUMNS FROM `match` LIKE 'outcome%';
+(no rows = columns gone)
+$ (down again)
+skip: column `match`.`outcome` does not exist
+skip: column `match`.`outcome_reason` does not exist
+Migration 001_add_match_outcome.down.sql completed
+$ (up)
+Executing:
+ALTER TABLE `match`
+  ADD COLUMN `outcome` VARCHAR(20) NOT NULL DEFAULT 'regular',
+  ADD COLUMN `outcome_reason` VARCHAR(255) NULL
+Migration 001_add_match_outcome.sql completed
+$ (up again - idempotent)
+skip: column `match`.`outcome` already exists
+skip: column `match`.`outcome_reason` already exists
+Migration 001_add_match_outcome.sql completed
+mysql> SHOW COLUMNS FROM `match` LIKE 'outcome%';
+Field	Type	Null	Key	Default	Extra
+outcome	varchar(20)	NO		regular	
+outcome_reason	varchar(255)	YES		NULL	
+mysql> SELECT outcome, COUNT(*) FROM `match` GROUP BY outcome;
+outcome	COUNT(*)
+regular	6

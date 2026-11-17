@@ -1,0 +1,74 @@
+$ RESET=1 scripts/e2e_walkover.sh
+== GET /match-outcomes
+  PASS  lists 2 outcomes
+  PASS  walkover is declared
+== validation (match 12)
+  PASS  unknown outcome -> 400
+  PASS  unknown outcome message
+  PASS  winner not in match -> 400
+  PASS  missing winner -> 400
+  PASS  outcome regular -> 400
+  PASS  regular message points to /update-score
+  PASS  missing tournament_id -> 400
+  PASS  TBD team (match 15) -> 400
+  PASS  unknown match -> 404
+  PASS  match still pending after bad requests
+== walkover happy path (match 12, winner T004)
+  PASS  declare -> 200
+  PASS  response outcome
+  PASS  response outcome_label
+  PASS  response winner
+  PASS  response is_final
+  PASS  response scores 0-0
+  PASS  /score/match outcome
+  PASS  /score/match reason
+  PASS  /score/match status
+  PASS  /score/match winner
+  PASS  /score/match scores 0-0
+  PASS  db row
+  PASS  db score rows 0/0, no duplicates
+  PASS  fixtures match_status.outcome
+  PASS  fixtures match_result stays 0-0
+  PASS  fixtures regular match outcome
+  PASS  fixtures CSV shows W/O
+  PASS  DUPR export excludes walkover
+== standings after walkover
+  PASS  /standings winner +1 win
+  PASS  /standings winner +2 total_scores
+  PASS  /standings winner +1 played
+  PASS  /standings loser +1 played
+  PASS  /standings loser wins unchanged
+  PASS  /standings winner points unchanged
+  PASS  /standings loser points_lost unchanged
+  PASS  /overall-standings winner +1 win
+  PASS  /overall-standings loser +1 played
+  PASS  /overall-standings points unchanged
+  PASS  /second-place-standings matches /standings pool A #2
+  PASS  /second-place-standings same played/won as /standings
+  PASS  /knockout-top-teams winner +1 win
+  PASS  /knockout-top-teams played unchanged (0-0 already counted there)
+  PASS  /knockout-top-teams points unchanged
+  PASS  get_round_standings (/complete-round) winner +1 win
+  PASS  get_round_standings total_scores +1
+  PASS  get_round_standings loser wins unchanged
+== override walkover with a real score
+  PASS  /update-score final 11-5 -> 200
+  PASS  override response outcome regular
+  PASS  override response winner from scores
+  PASS  override db row
+  PASS  override standings: score winner gets the win
+  PASS  override standings: former walkover winner loses it
+  PASS  override standings: points now count
+  PASS  override DUPR export includes it again
+== knockout walkover (match 14 -> successor 15)
+  PASS  declare knockout walkover -> 200
+  PASS  successor team2 filled with winner
+  PASS  successor has winner score row once
+  PASS  re-declare -> 200
+  PASS  re-declare creates no duplicate successor Score rows
+  PASS  no duplicate (match, team) score rows
+  PASS  fixtures: successor shows winner
+  PASS  now the final can be declared (no TBD)
+
+passed: 64  failed: 0
+exit=0

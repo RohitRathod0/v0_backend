@@ -4,43 +4,16 @@ from models import Score, Match, db, Player, Team
 from . import score_bp
 from socket_instance import socketio
 from flask_cors import cross_origin
+from services.match_outcome import advance_to_successor
 
 def update_successor_match(successor_match_id, current_match_id, winning_team_id):
-    """Updates the successor match with the winning team"""
+    """Updates the successor match with the winning team (moved to services.match_outcome)"""
     try:
-        successor_match = Match.query.get(successor_match_id)
-        if not successor_match:
-            return
-        
-        # Determine which predecessor this match is and update corresponding team
-        if successor_match.predecessor_1 == current_match_id:
-            successor_match.team1_id = winning_team_id
-        elif successor_match.predecessor_2 == current_match_id:
-            successor_match.team2_id = winning_team_id
-            
-        # If both teams are set, create score entries
-        if successor_match.team1_id and successor_match.team2_id:
-            scores = [
-                Score(
-                    match_id=str(successor_match.id),
-                    team_id=successor_match.team1_id,
-                    score=0,
-                    tournament_id=successor_match.tournament_id
-                ),
-                Score(
-                    match_id=str(successor_match.id),
-                    team_id=successor_match.team2_id,
-                    score=0,
-                    tournament_id=successor_match.tournament_id
-                )
-            ]
-            db.session.bulk_save_objects(scores)
-            
+        advance_to_successor(successor_match_id, current_match_id, winning_team_id)
         db.session.commit()
-        
     except Exception as e:
         db.session.rollback()
-        raise e 
+        raise e
 
 @score_bp.route('/update-score', methods=['POST'])
 def update_score():

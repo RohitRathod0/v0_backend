@@ -10,7 +10,7 @@
         "match_result": "11-5",
         "match_status": {
           "is_final": true,
-          "status": "pending",
+          "status": "completed",
           "winner_team_id": "T001"
         },
         "pool": "A",
@@ -38,7 +38,7 @@
         "match_result": "7-11",
         "match_status": {
           "is_final": true,
-          "status": "pending",
+          "status": "completed",
           "winner_team_id": "T003"
         },
         "pool": "A",
@@ -66,7 +66,7 @@
         "match_result": "11-9",
         "match_status": {
           "is_final": true,
-          "status": "pending",
+          "status": "completed",
           "winner_team_id": "T001"
         },
         "pool": "A",
@@ -94,7 +94,7 @@
         "match_result": "11-11",
         "match_status": {
           "is_final": true,
-          "status": "pending",
+          "status": "completed",
           "winner_team_id": null
         },
         "pool": "A",
@@ -122,7 +122,7 @@
         "match_result": "5-3",
         "match_status": {
           "is_final": false,
-          "status": "pending",
+          "status": "on-going",
           "winner_team_id": null
         },
         "pool": "A",
@@ -187,7 +187,7 @@
         "match_result": "11-4",
         "match_status": {
           "is_final": true,
-          "status": "pending",
+          "status": "completed",
           "winner_team_id": "T001"
         },
         "pool": "knockout",

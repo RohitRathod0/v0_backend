@@ -4,7 +4,7 @@ from models import Score, Match, db, Player, Team
 from . import score_bp
 from socket_instance import socketio
 from flask_cors import cross_origin
-from services.match_outcome import advance_to_successor
+from services.match_outcome import MatchOutcome, advance_to_successor, finalize_match, serialize_outcome
 
 def update_successor_match(successor_match_id, current_match_id, winning_team_id):
     """Updates the successor match with the winning team (moved to services.match_outcome)"""
@@ -47,60 +47,50 @@ def update_score():
 
         print(f"Found match with team1_id={match.team1_id}, team2_id={match.team2_id}")
 
-        # First, check if scores exist, if not create them
-        team1_score_record = Score.query.filter_by(
-            match_id=match_id,
-            team_id=match.team1_id,
-            tournament_id=tournament_id
-        ).first()
-        
-        team2_score_record = Score.query.filter_by(
-            match_id=match_id,
-            team_id=match.team2_id,
-            tournament_id=tournament_id
-        ).first()
-
-        # Create or update score records
-        if not team1_score_record:
-            team1_score_record = Score(
+        if final:
+            finalize_match(match, MatchOutcome.REGULAR.value, team1_score, team2_score)
+            print(f"Match finalized with winner_team_id: {match.winner_team_id}")
+            print("Updates committed to database")
+        else:
+            # First, check if scores exist, if not create them
+            team1_score_record = Score.query.filter_by(
                 match_id=match_id,
                 team_id=match.team1_id,
-                tournament_id=tournament_id,
-                score=team1_score
-            )
-            db.session.add(team1_score_record)
-        else:
-            team1_score_record.score = team1_score
+                tournament_id=tournament_id
+            ).first()
 
-        if not team2_score_record:
-            team2_score_record = Score(
+            team2_score_record = Score.query.filter_by(
                 match_id=match_id,
                 team_id=match.team2_id,
-                tournament_id=tournament_id,
-                score=team2_score
-            )
-            db.session.add(team2_score_record)
-        else:
-            team2_score_record.score = team2_score
+                tournament_id=tournament_id
+            ).first()
 
-        # Update match final status and winner if final is True
-        if final:
-            match.is_final = True
-            # Determine winner
-            if team1_score > team2_score:
-                match.winner_team_id = match.team1_id
-            elif team2_score > team1_score:
-                match.winner_team_id = match.team2_id
+            # Create or update score records
+            if not team1_score_record:
+                team1_score_record = Score(
+                    match_id=match_id,
+                    team_id=match.team1_id,
+                    tournament_id=tournament_id,
+                    score=team1_score
+                )
+                db.session.add(team1_score_record)
             else:
-                match.winner_team_id = None  # Draw
-            print(f"Match finalized with winner_team_id: {match.winner_team_id}")
+                team1_score_record.score = team1_score
 
-            if match.successor:
-                update_successor_match(match.successor, match.id, match.winner_team_id)
-        
-        # Commit all changes
-        db.session.commit()
-        print("Updates committed to database")
+            if not team2_score_record:
+                team2_score_record = Score(
+                    match_id=match_id,
+                    team_id=match.team2_id,
+                    tournament_id=tournament_id,
+                    score=team2_score
+                )
+                db.session.add(team2_score_record)
+            else:
+                team2_score_record.score = team2_score
+
+            # Commit all changes
+            db.session.commit()
+            print("Updates committed to database")
 
         response = {
             'message': 'Scores updated successfully',
@@ -110,7 +100,9 @@ def update_score():
             'team2_id': match.team2_id,
             'team2_score': team2_score,
             'is_final': match.is_final,
-            'tournament_id': tournament_id
+            'tournament_id': tournament_id,
+            'winner_team_id': match.winner_team_id,
+            **serialize_outcome(match)
         }
 
         # Emit WebSocket event with the updated scores
@@ -247,7 +239,8 @@ def get_match_score():
             },
             'status': match.status,
             'is_final': match.is_final,
-            'winner_team_id': match.winner_team_id
+            'winner_team_id': match.winner_team_id,
+            **serialize_outcome(match)
         }
         
         return jsonify(response), 200

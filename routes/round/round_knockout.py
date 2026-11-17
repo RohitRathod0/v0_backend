@@ -3,6 +3,7 @@ from models import db, Tournament, Match, Team, Score, Round
 from sqlalchemy import func
 from . import round_bp
 from flask_cors import cross_origin
+from services.match_outcome import standings_contribution
 import csv
 import io
 import math
@@ -55,21 +56,21 @@ def get_pool_standings(tournament_id, round_id):
         
         if match.team1_id and match.team2_id:  # Only count completed matches
             pool = match.pool.strip()  # Clean pool name
+            contrib = standings_contribution(match.outcome, match.team1_id, match.team2_id,
+                                             team1_score, team2_score, match.winner_team_id)
             # Update team 1 stats
             if match.team1_id in pool_standings.get(pool, {}):
                 pool_standings[pool][match.team1_id]['matches_played'] += 1
-                pool_standings[pool][match.team1_id]['points_scored'] += team1_score
-                pool_standings[pool][match.team1_id]['points_against'] += team2_score
-                if team1_score > team2_score:
-                    pool_standings[pool][match.team1_id]['matches_won'] += 1
-                
+                pool_standings[pool][match.team1_id]['points_scored'] += contrib['team1']['scored']
+                pool_standings[pool][match.team1_id]['points_against'] += contrib['team1']['conceded']
+                pool_standings[pool][match.team1_id]['matches_won'] += contrib['team1']['won']
+
             # Update team 2 stats
             if match.team2_id in pool_standings.get(pool, {}):
                 pool_standings[pool][match.team2_id]['matches_played'] += 1
-                pool_standings[pool][match.team2_id]['points_scored'] += team2_score
-                pool_standings[pool][match.team2_id]['points_against'] += team1_score
-                if team2_score > team1_score:
-                    pool_standings[pool][match.team2_id]['matches_won'] += 1
+                pool_standings[pool][match.team2_id]['points_scored'] += contrib['team2']['scored']
+                pool_standings[pool][match.team2_id]['points_against'] += contrib['team2']['conceded']
+                pool_standings[pool][match.team2_id]['matches_won'] += contrib['team2']['won']
     
     return pool_standings
 

@@ -2,6 +2,7 @@ from flask import request, jsonify
 from models import Tournament, Team, Player, Match, Score, Round, db
 from routes.tournament.tournament_core import show_standings
 from . import round_bp
+from services.match_outcome import standings_contribution
 
 def get_round_standings(tournament_id, round_id):
     """
@@ -45,18 +46,26 @@ def get_round_standings(tournament_id, round_id):
                     }
 
                 team_stats = pool_standings[match.pool][score.team_id]
-                team_stats['points_scored'] += score.score
-                team_stats['matches_played'].add(match.id)
 
                 # Find opponent's score
                 opponent_score = next(
                     (s for s in match_scores if s.team_id != score.team_id),
                     None
                 )
+                contrib = standings_contribution(
+                    match.outcome,
+                    score.team_id,
+                    opponent_score.team_id if opponent_score else None,
+                    score.score,
+                    opponent_score.score if opponent_score else 0,
+                    match.winner_team_id
+                )['team1']
+                team_stats['points_scored'] += contrib['scored']
+                team_stats['matches_played'].add(match.id)
+
                 if opponent_score:
-                    team_stats['points_lost'] += opponent_score.score
-                    if score.score > opponent_score.score:
-                        team_stats['matches_won'] += 1
+                    team_stats['points_lost'] += contrib['conceded']
+                    team_stats['matches_won'] += contrib['won']
 
                 team_stats['total_scores'] = team_stats['matches_won']
                 team_stats['points_difference'] = (

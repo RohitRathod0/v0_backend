@@ -5,6 +5,7 @@ import csv
 import io
 from . import match_bp
 from sqlalchemy import cast
+from services.match_outcome import WINNER_DECLARED, get_rule, serialize_outcome
 
 @match_bp.route('/get-match-fixtures', methods=['GET'])
 def get_match_fixtures():
@@ -169,7 +170,8 @@ def get_match_fixtures():
                 'match_status': {
                     'winner_team_id': match.winner_team_id,
                     'is_final': match.is_final,
-                    'status': match.status
+                    'status': match.status,
+                    **serialize_outcome(match)
                 },
                 'bracket_info': {
                     'round_number': match.round_number,
@@ -268,7 +270,9 @@ def get_match_fixtures_csv():
 
             # Get match result if the match is final
             match_result = "TBD"
-            if match.is_final:
+            if match.is_final and get_rule(match.outcome).winner_source == WINNER_DECLARED:
+                match_result = f"W/O ({match.winner_team_id})"
+            elif match.is_final:
                 team1_score = Score.query.filter_by(match_id=match.id, team_id=match.team1_id).first()
                 team2_score = Score.query.filter_by(match_id=match.id, team_id=match.team2_id).first()
                 if team1_score and team2_score:

@@ -2,6 +2,7 @@ from flask import request, jsonify, current_app, render_template
 from models import Tournament, Team, Player, Match, Score, Round, db, Season
 from sqlalchemy import text, or_, and_, func, case, distinct
 from . import tournament_bp
+from services.match_outcome import standings_contribution
 
 @tournament_bp.route('/tournaments', methods=['POST'])
 def create_tournament():
@@ -131,6 +132,8 @@ def show_standings(tournament_id):
             m.team2_id,
             m.round_id,
             m.pool,
+            m.outcome,
+            m.winner_team_id,
             s1.team_id as team1_id,
             s1.score as team1_score,
             s2.team_id as team2_id,
@@ -145,18 +148,18 @@ def show_standings(tournament_id):
         score_sql,
         {'tournament_id': tournament_id}
     ).fetchall()
-    
+
     print(f"Found {len(matches)} matches")
-    
+
     # Create a dictionary to store scores by team and round
     team_scores = {}
-    
+
     # Process all matches
     for match in matches:
         round_id = match.round_id
         if round_id not in team_scores:
             team_scores[round_id] = {}
-            
+
         # Initialize team data if not exists
         for team_id in [match.team1_id, match.team2_id]:
             if team_id not in team_scores[round_id]:
@@ -166,29 +169,32 @@ def show_standings(tournament_id):
                     'matches': set(),
                     'matches_won': 0
                 }
-        
+
         print(f"\nProcessing match {match.match_id}:")
         print(f"Team1 ({match.team1_id}): {match.team1_score}")
         print(f"Team2 ({match.team2_id}): {match.team2_score}")
-        
+
+        contrib = standings_contribution(match.outcome, match.team1_id, match.team2_id,
+                                         match.team1_score, match.team2_score, match.winner_team_id)
+
         # Add scores
-        team_scores[round_id][match.team1_id]['points_scored'] += match.team1_score
-        team_scores[round_id][match.team1_id]['points_lost'] += match.team2_score
-        team_scores[round_id][match.team2_id]['points_scored'] += match.team2_score
-        team_scores[round_id][match.team2_id]['points_lost'] += match.team1_score
-        
+        team_scores[round_id][match.team1_id]['points_scored'] += contrib['team1']['scored']
+        team_scores[round_id][match.team1_id]['points_lost'] += contrib['team1']['conceded']
+        team_scores[round_id][match.team2_id]['points_scored'] += contrib['team2']['scored']
+        team_scores[round_id][match.team2_id]['points_lost'] += contrib['team2']['conceded']
+
         # Track match and determine winner
-        if match.team1_score == 0 and match.team2_score == 0:
+        if match.team1_score == 0 and match.team2_score == 0 and not contrib['counts_as_played_override']:
             print("Match not played yet")
             continue
-            
+
         team_scores[round_id][match.team1_id]['matches'].add(match.match_id)
         team_scores[round_id][match.team2_id]['matches'].add(match.match_id)
-        
-        if match.team1_score > match.team2_score:
+
+        if contrib['team1']['won']:
             team_scores[round_id][match.team1_id]['matches_won'] += 1
             print(f"Winner: Team {match.team1_id}")
-        elif match.team2_score > match.team1_score:
+        elif contrib['team2']['won']:
             team_scores[round_id][match.team2_id]['matches_won'] += 1
             print(f"Winner: Team {match.team2_id}")
         else:
@@ -305,6 +311,8 @@ def show_overall_standings(tournament_id):
             m.id as match_id,
             m.team1_id,
             m.team2_id,
+            m.outcome,
+            m.winner_team_id,
             s1.team_id as team1_id,
             s1.score as team1_score,
             s2.team_id as team2_id,
@@ -341,25 +349,28 @@ def show_overall_standings(tournament_id):
         print(f"Team1 ({match.team1_id}): {match.team1_score}")
         print(f"Team2 ({match.team2_id}): {match.team2_score}")
         
+        contrib = standings_contribution(match.outcome, match.team1_id, match.team2_id,
+                                         match.team1_score, match.team2_score, match.winner_team_id)
+
         # Skip unplayed matches
-        if match.team1_score == 0 and match.team2_score == 0:
+        if match.team1_score == 0 and match.team2_score == 0 and not contrib['counts_as_played_override']:
             print("Match not played yet")
             continue
-        
+
         # Add scores
-        team_scores[match.team1_id]['points_scored'] += match.team1_score
-        team_scores[match.team1_id]['points_lost'] += match.team2_score
-        team_scores[match.team2_id]['points_scored'] += match.team2_score
-        team_scores[match.team2_id]['points_lost'] += match.team1_score
-        
+        team_scores[match.team1_id]['points_scored'] += contrib['team1']['scored']
+        team_scores[match.team1_id]['points_lost'] += contrib['team1']['conceded']
+        team_scores[match.team2_id]['points_scored'] += contrib['team2']['scored']
+        team_scores[match.team2_id]['points_lost'] += contrib['team2']['conceded']
+
         # Track match and determine winner
         team_scores[match.team1_id]['matches'].add(match.match_id)
         team_scores[match.team2_id]['matches'].add(match.match_id)
-        
-        if match.team1_score > match.team2_score:
+
+        if contrib['team1']['won']:
             team_scores[match.team1_id]['matches_won'] += 1
             print(f"Winner: Team {match.team1_id}")
-        elif match.team2_score > match.team1_score:
+        elif contrib['team2']['won']:
             team_scores[match.team2_id]['matches_won'] += 1
             print(f"Winner: Team {match.team2_id}")
         else:
@@ -504,6 +515,8 @@ def show_second_place_standings(tournament_id):
             m.team2_id,
             m.round_id,
             m.pool,
+            m.outcome,
+            m.winner_team_id,
             s1.team_id as team1_id,
             s1.score as team1_score,
             s2.team_id as team2_id,
@@ -546,24 +559,27 @@ def show_second_place_standings(tournament_id):
         print(f"Team1 ({match.team1_id}): {match.team1_score}")
         print(f"Team2 ({match.team2_id}): {match.team2_score}")
         
+        contrib = standings_contribution(match.outcome, match.team1_id, match.team2_id,
+                                         match.team1_score, match.team2_score, match.winner_team_id)
+
         # Add scores
-        pool_scores[pool][match.team1_id]['points_scored'] += match.team1_score
-        pool_scores[pool][match.team1_id]['points_lost'] += match.team2_score
-        pool_scores[pool][match.team2_id]['points_scored'] += match.team2_score
-        pool_scores[pool][match.team2_id]['points_lost'] += match.team1_score
-        
+        pool_scores[pool][match.team1_id]['points_scored'] += contrib['team1']['scored']
+        pool_scores[pool][match.team1_id]['points_lost'] += contrib['team1']['conceded']
+        pool_scores[pool][match.team2_id]['points_scored'] += contrib['team2']['scored']
+        pool_scores[pool][match.team2_id]['points_lost'] += contrib['team2']['conceded']
+
         # Track match and determine winner
-        if match.team1_score == 0 and match.team2_score == 0:
+        if match.team1_score == 0 and match.team2_score == 0 and not contrib['counts_as_played_override']:
             print("Match not played yet")
             continue
-            
+
         pool_scores[pool][match.team1_id]['matches'].add(match.match_id)
         pool_scores[pool][match.team2_id]['matches'].add(match.match_id)
-        
-        if match.team1_score > match.team2_score:
+
+        if contrib['team1']['won']:
             pool_scores[pool][match.team1_id]['matches_won'] += 1
             print(f"Winner: Team {match.team1_id}")
-        elif match.team2_score > match.team1_score:
+        elif contrib['team2']['won']:
             pool_scores[pool][match.team2_id]['matches_won'] += 1
             print(f"Winner: Team {match.team2_id}")
         else:

@@ -1,0 +1,24 @@
+{
+  "body": {
+    "standings": [
+      {
+        "matches_lost": 1,
+        "matches_played": 2,
+        "matches_won": 1,
+        "players": "David Brown / Lisa Anderson",
+        "points_difference": 4,
+        "points_lost": 18,
+        "points_scored": 22,
+        "pool": "A",
+        "rank": 1,
+        "team_id": "T003",
+        "team_name": "Smashers",
+        "total_scores": 2,
+        "win_percentage": 50.0
+      }
+    ],
+    "total_second_place_teams": 1,
+    "tournament_id": 1
+  },
+  "status_code": 200
+}

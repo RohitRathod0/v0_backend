@@ -1,0 +1,154 @@
+{
+  "1": {
+    "1": {
+      "pools": {
+        "A": [
+          {
+            "matches_played": [
+              7,
+              8,
+              9
+            ],
+            "matches_won": 2,
+            "name": "Thunder Smash",
+            "points_difference": 4,
+            "points_lost": 25,
+            "points_scored": 29,
+            "team_id": "T001",
+            "total_scores": 2
+          },
+          {
+            "matches_played": [
+              7,
+              10,
+              11
+            ],
+            "matches_won": 1,
+            "name": "Lightning Serve",
+            "points_difference": -4,
+            "points_lost": 25,
+            "points_scored": 21,
+            "team_id": "T002",
+            "total_scores": 1
+          },
+          {
+            "matches_played": [
+              8,
+              10,
+              12
+            ],
+            "matches_won": 1,
+            "name": "Smashers",
+            "points_difference": 4,
+            "points_lost": 18,
+            "points_scored": 22,
+            "team_id": "T003",
+            "total_scores": 1
+          },
+          {
+            "matches_played": [
+              9,
+              11,
+              12
+            ],
+            "matches_won": 0,
+            "name": "Destroyers",
+            "points_difference": -4,
+            "points_lost": 16,
+            "points_scored": 12,
+            "team_id": "T004",
+            "total_scores": 0
+          }
+        ]
+      }
+    }
+  },
+  "2": {
+    "2": {
+      "pools": {
+        "knockout": [
+          {
+            "matches_played": [
+              13
+            ],
+            "matches_won": 1,
+            "name": "Thunder Smash",
+            "points_difference": 7,
+            "points_lost": 4,
+            "points_scored": 11,
+            "team_id": "T001",
+            "total_scores": 1
+          },
+          {
+            "matches_played": [
+              13
+            ],
+            "matches_won": 0,
+            "name": "Lightning Serve",
+            "points_difference": -7,
+            "points_lost": 11,
+            "points_scored": 4,
+            "team_id": "T002",
+            "total_scores": 0
+          },
+          {
+            "matches_played": [
+              14
+            ],
+            "matches_won": 0,
+            "name": "Smashers",
+            "points_difference": 0,
+            "points_lost": 0,
+            "points_scored": 0,
+            "team_id": "T003",
+            "total_scores": 0
+          },
+          {
+            "matches_played": [
+              14
+            ],
+            "matches_won": 0,
+            "name": "Destroyers",
+            "points_difference": 0,
+            "points_lost": 0,
+            "points_scored": 0,
+            "team_id": "T004",
+            "total_scores": 0
+          }
+        ]
+      }
+    }
+  },
+  "3": {
+    "3": {
+      "pools": {
+        "knockout": [
+          {
+            "matches_played": [
+              15
+            ],
+            "matches_won": 0,
+            "name": "Thunder Smash",
+            "points_difference": 0,
+            "points_lost": 0,
+            "points_scored": 0,
+            "team_id": "T001",
+            "total_scores": 0
+          },
+          {
+            "matches_played": [
+              15
+            ],
+            "matches_won": 0,
+            "name": "TBD",
+            "points_difference": 0,
+            "points_lost": 0,
+            "points_scored": 0,
+            "team_id": "TBD",
+            "total_scores": 0
+          }
+        ]
+      }
+    }
+  }
+}

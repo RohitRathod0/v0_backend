@@ -1,0 +1,30 @@
+{
+  "body": [
+    {
+      "team_id": "T001",
+      "team_name": "Thunder Smash",
+      "total_points": "40"
+    },
+    {
+      "team_id": "T002",
+      "team_name": "Lightning Serve",
+      "total_points": "25"
+    },
+    {
+      "team_id": "T003",
+      "team_name": "Smashers",
+      "total_points": "22"
+    },
+    {
+      "team_id": "T004",
+      "team_name": "Destroyers",
+      "total_points": "12"
+    },
+    {
+      "team_id": "TBD",
+      "team_name": "TBD",
+      "total_points": 0
+    }
+  ],
+  "status_code": 200
+}

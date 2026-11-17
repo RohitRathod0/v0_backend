@@ -1,0 +1,73 @@
+{
+  "body": {
+    "standings": [
+      {
+        "matches_lost": 1,
+        "matches_played": 4,
+        "matches_won": 3,
+        "players": "John Smith / Sarah Johnson",
+        "points_difference": 11,
+        "points_lost": 29,
+        "points_scored": 40,
+        "team_id": "T001",
+        "team_name": "Thunder Smash",
+        "total_scores": 6,
+        "win_percentage": 75.0
+      },
+      {
+        "matches_lost": 1,
+        "matches_played": 2,
+        "matches_won": 1,
+        "players": "David Brown / Lisa Anderson",
+        "points_difference": 4,
+        "points_lost": 18,
+        "points_scored": 22,
+        "team_id": "T003",
+        "team_name": "Smashers",
+        "total_scores": 2,
+        "win_percentage": 50.0
+      },
+      {
+        "matches_lost": 3,
+        "matches_played": 4,
+        "matches_won": 1,
+        "players": "Mike Wilson / Emma Davis",
+        "points_difference": -11,
+        "points_lost": 36,
+        "points_scored": 25,
+        "team_id": "T002",
+        "team_name": "Lightning Serve",
+        "total_scores": 2,
+        "win_percentage": 25.0
+      },
+      {
+        "matches_lost": 0,
+        "matches_played": 0,
+        "matches_won": 0,
+        "players": "",
+        "points_difference": 0,
+        "points_lost": 0,
+        "points_scored": 0,
+        "team_id": "TBD",
+        "team_name": "TBD",
+        "total_scores": 0,
+        "win_percentage": 0
+      },
+      {
+        "matches_lost": 2,
+        "matches_played": 2,
+        "matches_won": 0,
+        "players": "James Lee / Rachel White",
+        "points_difference": -4,
+        "points_lost": 16,
+        "points_scored": 12,
+        "team_id": "T004",
+        "team_name": "Destroyers",
+        "total_scores": 0,
+        "win_percentage": 0.0
+      }
+    ],
+    "tournament_id": 1
+  },
+  "status_code": 200
+}

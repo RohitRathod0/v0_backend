@@ -1,0 +1,136 @@
+{
+  "body": {
+    "1": {
+      "pools": {
+        "A": [
+          {
+            "matches_lost": 1,
+            "matches_played": 3,
+            "matches_won": 2,
+            "players": "John Smith / Sarah Johnson",
+            "points_difference": 4,
+            "points_lost": 25,
+            "points_scored": 29,
+            "team_id": "T001",
+            "total_scores": 4
+          },
+          {
+            "matches_lost": 1,
+            "matches_played": 2,
+            "matches_won": 1,
+            "players": "David Brown / Lisa Anderson",
+            "points_difference": 4,
+            "points_lost": 18,
+            "points_scored": 22,
+            "team_id": "T003",
+            "total_scores": 2
+          },
+          {
+            "matches_lost": 2,
+            "matches_played": 3,
+            "matches_won": 1,
+            "players": "Mike Wilson / Emma Davis",
+            "points_difference": -4,
+            "points_lost": 25,
+            "points_scored": 21,
+            "team_id": "T002",
+            "total_scores": 2
+          },
+          {
+            "matches_lost": 2,
+            "matches_played": 2,
+            "matches_won": 0,
+            "players": "James Lee / Rachel White",
+            "points_difference": -4,
+            "points_lost": 16,
+            "points_scored": 12,
+            "team_id": "T004",
+            "total_scores": 0
+          }
+        ]
+      },
+      "round_name": null
+    },
+    "2": {
+      "pools": {
+        "knockout": [
+          {
+            "matches_lost": 0,
+            "matches_played": 1,
+            "matches_won": 1,
+            "players": "John Smith / Sarah Johnson",
+            "points_difference": 7,
+            "points_lost": 4,
+            "points_scored": 11,
+            "team_id": "T001",
+            "total_scores": 2
+          },
+          {
+            "matches_lost": 0,
+            "matches_played": 0,
+            "matches_won": 0,
+            "players": "James Lee / Rachel White",
+            "points_difference": 0,
+            "points_lost": 0,
+            "points_scored": 0,
+            "team_id": "T004",
+            "total_scores": 0
+          },
+          {
+            "matches_lost": 0,
+            "matches_played": 0,
+            "matches_won": 0,
+            "players": "David Brown / Lisa Anderson",
+            "points_difference": 0,
+            "points_lost": 0,
+            "points_scored": 0,
+            "team_id": "T003",
+            "total_scores": 0
+          },
+          {
+            "matches_lost": 1,
+            "matches_played": 1,
+            "matches_won": 0,
+            "players": "Mike Wilson / Emma Davis",
+            "points_difference": -7,
+            "points_lost": 11,
+            "points_scored": 4,
+            "team_id": "T002",
+            "total_scores": 0
+          }
+        ]
+      },
+      "round_name": null
+    },
+    "3": {
+      "pools": {
+        "knockout": [
+          {
+            "matches_lost": 0,
+            "matches_played": 0,
+            "matches_won": 0,
+            "players": "",
+            "points_difference": 0,
+            "points_lost": 0,
+            "points_scored": 0,
+            "team_id": "TBD",
+            "total_scores": 0
+          },
+          {
+            "matches_lost": 0,
+            "matches_played": 0,
+            "matches_won": 0,
+            "players": "John Smith / Sarah Johnson",
+            "points_difference": 0,
+            "points_lost": 0,
+            "points_scored": 0,
+            "team_id": "T001",
+            "total_scores": 0
+          }
+        ]
+      },
+      "round_name": null
+    }
+  },
+  "status_code": 200
+}

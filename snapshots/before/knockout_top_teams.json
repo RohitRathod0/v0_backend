@@ -1,0 +1,42 @@
+{
+  "body": {
+    "top_teams": {
+      "A": [
+        {
+          "matches_played": 3,
+          "matches_won": 2,
+          "points_against": 25,
+          "points_difference": 4,
+          "points_scored": 29,
+          "team_id": "T001"
+        },
+        {
+          "matches_played": 3,
+          "matches_won": 1,
+          "points_against": 18,
+          "points_difference": 4,
+          "points_scored": 22,
+          "team_id": "T003"
+        },
+        {
+          "matches_played": 3,
+          "matches_won": 1,
+          "points_against": 25,
+          "points_difference": -4,
+          "points_scored": 21,
+          "team_id": "T002"
+        },
+        {
+          "matches_played": 3,
+          "matches_won": 0,
+          "points_against": 16,
+          "points_difference": -4,
+          "points_scored": 12,
+          "team_id": "T004"
+        }
+      ]
+    },
+    "total_teams": 4
+  },
+  "status_code": 200
+}

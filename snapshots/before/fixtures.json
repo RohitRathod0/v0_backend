@@ -1,0 +1,290 @@
+{
+  "body": {
+    "matches": [
+      {
+        "bracket_info": null,
+        "court_number": null,
+        "court_order": null,
+        "match_id": 7,
+        "match_name": "Round 1 Pool A - Thunder Smash vs Lightning Serve",
+        "match_result": "11-5",
+        "match_status": {
+          "is_final": true,
+          "status": "pending",
+          "winner_team_id": "T001"
+        },
+        "pool": "A",
+        "round_id": "1",
+        "round_name": "Round Robin",
+        "team1": {
+          "checked_in": false,
+          "name": "Thunder Smash",
+          "team_id": "T001"
+        },
+        "team1_players": "John Smith, Sarah Johnson",
+        "team2": {
+          "checked_in": false,
+          "name": "Lightning Serve",
+          "team_id": "T002"
+        },
+        "team2_players": "Mike Wilson, Emma Davis"
+      },
+      {
+        "bracket_info": null,
+        "court_number": null,
+        "court_order": null,
+        "match_id": 8,
+        "match_name": "Round 1 Pool A - Thunder Smash vs Smashers",
+        "match_result": "7-11",
+        "match_status": {
+          "is_final": true,
+          "status": "pending",
+          "winner_team_id": "T003"
+        },
+        "pool": "A",
+        "round_id": "1",
+        "round_name": "Round Robin",
+        "team1": {
+          "checked_in": false,
+          "name": "Thunder Smash",
+          "team_id": "T001"
+        },
+        "team1_players": "John Smith, Sarah Johnson",
+        "team2": {
+          "checked_in": false,
+          "name": "Smashers",
+          "team_id": "T003"
+        },
+        "team2_players": "David Brown, Lisa Anderson"
+      },
+      {
+        "bracket_info": null,
+        "court_number": null,
+        "court_order": null,
+        "match_id": 9,
+        "match_name": "Round 1 Pool A - Thunder Smash vs Destroyers",
+        "match_result": "11-9",
+        "match_status": {
+          "is_final": true,
+          "status": "pending",
+          "winner_team_id": "T001"
+        },
+        "pool": "A",
+        "round_id": "1",
+        "round_name": "Round Robin",
+        "team1": {
+          "checked_in": false,
+          "name": "Thunder Smash",
+          "team_id": "T001"
+        },
+        "team1_players": "John Smith, Sarah Johnson",
+        "team2": {
+          "checked_in": false,
+          "name": "Destroyers",
+          "team_id": "T004"
+        },
+        "team2_players": "James Lee, Rachel White"
+      },
+      {
+        "bracket_info": null,
+        "court_number": null,
+        "court_order": null,
+        "match_id": 10,
+        "match_name": "Round 1 Pool A - Lightning Serve vs Smashers",
+        "match_result": "11-11",
+        "match_status": {
+          "is_final": true,
+          "status": "pending",
+          "winner_team_id": null
+        },
+        "pool": "A",
+        "round_id": "1",
+        "round_name": "Round Robin",
+        "team1": {
+          "checked_in": false,
+          "name": "Lightning Serve",
+          "team_id": "T002"
+        },
+        "team1_players": "Mike Wilson, Emma Davis",
+        "team2": {
+          "checked_in": false,
+          "name": "Smashers",
+          "team_id": "T003"
+        },
+        "team2_players": "David Brown, Lisa Anderson"
+      },
+      {
+        "bracket_info": null,
+        "court_number": null,
+        "court_order": null,
+        "match_id": 11,
+        "match_name": "Round 1 Pool A - Lightning Serve vs Destroyers",
+        "match_result": "5-3",
+        "match_status": {
+          "is_final": false,
+          "status": "pending",
+          "winner_team_id": null
+        },
+        "pool": "A",
+        "round_id": "1",
+        "round_name": "Round Robin",
+        "team1": {
+          "checked_in": false,
+          "name": "Lightning Serve",
+          "team_id": "T002"
+        },
+        "team1_players": "Mike Wilson, Emma Davis",
+        "team2": {
+          "checked_in": false,
+          "name": "Destroyers",
+          "team_id": "T004"
+        },
+        "team2_players": "James Lee, Rachel White"
+      },
+      {
+        "bracket_info": null,
+        "court_number": null,
+        "court_order": null,
+        "match_id": 12,
+        "match_name": "Round 1 Pool A - Smashers vs Destroyers",
+        "match_result": "0-0",
+        "match_status": {
+          "is_final": false,
+          "status": "pending",
+          "winner_team_id": null
+        },
+        "pool": "A",
+        "round_id": "1",
+        "round_name": "Round Robin",
+        "team1": {
+          "checked_in": false,
+          "name": "Smashers",
+          "team_id": "T003"
+        },
+        "team1_players": "David Brown, Lisa Anderson",
+        "team2": {
+          "checked_in": false,
+          "name": "Destroyers",
+          "team_id": "T004"
+        },
+        "team2_players": "James Lee, Rachel White"
+      },
+      {
+        "bracket_info": {
+          "bracket_position": 0,
+          "predecessor_1": null,
+          "predecessor_2": null,
+          "round_number": 1,
+          "successor": {
+            "id": 15,
+            "name": "F1"
+          }
+        },
+        "court_number": null,
+        "court_order": null,
+        "match_id": 13,
+        "match_name": "SF1",
+        "match_result": "11-4",
+        "match_status": {
+          "is_final": true,
+          "status": "pending",
+          "winner_team_id": "T001"
+        },
+        "pool": "knockout",
+        "round_id": "2",
+        "round_name": "Semi Finals",
+        "team1": {
+          "checked_in": false,
+          "name": "Thunder Smash",
+          "team_id": "T001"
+        },
+        "team1_players": "John Smith, Sarah Johnson",
+        "team2": {
+          "checked_in": false,
+          "name": "Lightning Serve",
+          "team_id": "T002"
+        },
+        "team2_players": "Mike Wilson, Emma Davis"
+      },
+      {
+        "bracket_info": {
+          "bracket_position": 1,
+          "predecessor_1": null,
+          "predecessor_2": null,
+          "round_number": 1,
+          "successor": {
+            "id": 15,
+            "name": "F1"
+          }
+        },
+        "court_number": null,
+        "court_order": null,
+        "match_id": 14,
+        "match_name": "SF2",
+        "match_result": "0-0",
+        "match_status": {
+          "is_final": false,
+          "status": "pending",
+          "winner_team_id": null
+        },
+        "pool": "knockout",
+        "round_id": "2",
+        "round_name": "Semi Finals",
+        "team1": {
+          "checked_in": false,
+          "name": "Smashers",
+          "team_id": "T003"
+        },
+        "team1_players": "David Brown, Lisa Anderson",
+        "team2": {
+          "checked_in": false,
+          "name": "Destroyers",
+          "team_id": "T004"
+        },
+        "team2_players": "James Lee, Rachel White"
+      },
+      {
+        "bracket_info": {
+          "bracket_position": 0,
+          "predecessor_1": {
+            "id": 13,
+            "name": "SF1"
+          },
+          "predecessor_2": {
+            "id": 14,
+            "name": "SF2"
+          },
+          "round_number": 2,
+          "successor": null
+        },
+        "court_number": null,
+        "court_order": null,
+        "match_id": 15,
+        "match_name": "F1",
+        "match_result": "0-0",
+        "match_status": {
+          "is_final": false,
+          "status": "pending",
+          "winner_team_id": null
+        },
+        "pool": "knockout",
+        "round_id": "3",
+        "round_name": "Finals",
+        "team1": {
+          "checked_in": false,
+          "name": "Thunder Smash",
+          "team_id": "T001"
+        },
+        "team1_players": "John Smith, Sarah Johnson",
+        "team2": {
+          "checked_in": false,
+          "name": "TBD",
+          "team_id": "TBD"
+        },
+        "team2_players": "TBD"
+      }
+    ],
+    "total_matches": 9
+  },
+  "status_code": 200
+}
